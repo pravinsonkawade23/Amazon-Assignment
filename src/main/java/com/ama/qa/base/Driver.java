@@ -4,6 +4,7 @@ package com.ama.qa.base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -11,6 +12,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Driver {
 	public WebDriver driver;
+	public ChromeOptions options;
 	
 	public WebDriver getDriver() {
 		String browser = ConfigurationReader.getProperty("browser");
@@ -18,7 +20,9 @@ public class Driver {
 		switch(browser.toLowerCase()) {
 		case"chrome":
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
+			options = new ChromeOptions();
+			options.addArguments("--disable-notifications");
+			driver = new ChromeDriver(options);
 			break;
 			
 		case "firefox":
